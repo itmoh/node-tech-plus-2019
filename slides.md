@@ -1,4 +1,4 @@
-%  Node Tech Plus 2019
+% Node Tech Plus 2019
 % Maksym Tarasenko
 
 
@@ -81,7 +81,7 @@ Safity / Idempotency
 * v8 javascript engine
 * Event drivin
 * Non-blocking standart libraries
-* C\C++ addons
+* C \ C++ addons
 * NPM
 
 # EVENT LOOP
