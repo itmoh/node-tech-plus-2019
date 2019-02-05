@@ -1,78 +1,6 @@
 % Node Tech Plus 2019
 % Maksym Tarasenko
-
-
-
-# HTTP (HyperText Transfer Protocol)
-
-# REST (Representational State Transfer)
-
-## METHODS
-
-Safity / Idempotency
-
-| HTTP Method | Safe | Idempotent |
-|:-----------:|:----:|:----------:|
-| **GET**     | + | + |
-| **PUT**     | - | + |
-| **DELETE**  | - | + |
-| **POST**    | - | - |
-| **PATCH**   | - | - |
-
-## RESPONSE STATUS CODES
-
-* 1xx informational
-* 2xx success
-* 3xx redirect
-* 4xx client error
-* 5xx server error
-
-## REST API IS COMPOSED OF
-
-* docroot
-* resource
-* collection
-* controller
-
-## RESOURCES
-
-	GET		/pet/{petId} (find pet by Id)
-	PUT		/pet/{petId} (update an existing pet)
-	DELETE	/pet/{petId} (delete a pet)
-	POST	/pet/{petId}/uploadImage (upload an image)
-
-## Values
-
-* Uniform Interface
-* Stateless Interactions
-* Cacheable
-* Client-Server
-* Layered System
-* Code on Demand
-
-## FILTERING
-
-	GET /comments?filter[post]=1,2&filter[author]=12 HTTP/1.1
-
-## PAGINATION
-
-	GET /articles?page[number]=3&page[size]=1 HTTP/1.1
-
-## GOLDEN RULES
-
-* Flat is better than nested
-* Simple is better than complex
-* Strings are better than numbers
-* Consistency is better than customization
-
-## Http Headers
-
-## COOKIES AND SESSIONS
-
-# GraphQL
-
-!!! TODO
-
+% 6 Feburary 2019
 
 # NODE.JS
 
@@ -84,9 +12,9 @@ Safity / Idempotency
 * C \ C++ addons
 * NPM
 
-# EVENT LOOP
+## nodejs system
 
-* Event Loop and processes
+![nodejs system](img/node-system.jpg)
 
 ## Modules
 
@@ -95,7 +23,13 @@ Safity / Idempotency
 * module.exports
 * Caching
 
-### Modules: require
+## Modules: types
+
+- js
+- node
+- json
+
+## Modules: require
 
 ``` javascript
 var module1 = require('module1');
@@ -104,7 +38,7 @@ var module2 = require('./module2');
 var module3 = require('../module3');
 ```
 
-### Modules: exports
+## Modules: exports
 
 ``` javascript
 exports.log = function(msg) {
@@ -118,52 +52,67 @@ module.exports = function Loger() {
 };
 ```
 
-# NPM / YARN
+## structure of "module" object
+
+``` JSON
+{
+	"id": "The identifier for the module. Typically this is the fully resolved filename.",
+	"exports": "Public interface of the module",
+	"parent": "The module that first required this one.",
+	"filename": "The fully resolved filename to the module.",
+	"loaded": "Whether or not the module is done loading, or is in the process of loading.",
+	"children": "The module objects required by this one."
+}
+```
+
+# [NPM](https://www.npmjs.com) / [YARN](https://yarnpkg.com)
+
+## NPM
 
 * package.json
 * npm init
 * npm install
+	* --save
+	* --save-dev
+	* --global 
 * npm publish
+* npm view (info)
+* npm version
 
 > list of global modules **npm ls -g --depth=0**
 
-## PACKAGE.JSON
+## package.json structure
 
-``` javascript
+```JSON
 {
-	"name": "3_npm_test",
-	"version": "1.0.0",
-	"description": "test package",
-	"main": "main.js",
-	"scripts": {
-		"test": "echo \"Error: no test\" && exit 1",
-		"runMain": "node main.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/itmoh/node-mentoring.git"
-	},
-	"keywords": [
-		"node"
-	],
-	"author": "maxim tarasenko",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/itmoh/node-mentoring/issues"
-	},
-	"homepage": "https://github.com/itmoh/node-mentoring#readme"
-
+    "name": "name of package",
+    "version": "version of package (major.minor.patch)",
+    "description": "package description", 
+    "main": "entry point (index.js as default)",
+    "bin": "object with global registration names (PATH) and node module",
+    "scripts": "dictionary containing script commands that are run at various times in the lifecycle of your package",
+    "files": "array of files to include in your project",
+    "keywords": "array of strings, using for search",
+    "author": "package author",
+    "license": "package license",
+    "repository": "specify the place where your code lives",
+    "bugs": "the url to your project's issue tracker.",
+    "homepage": "the url to the project homepage.",
 }
 ```
 
+## lifecycle events
+
+![lifecycle events](img/lifecycleevents.png)
+
 ## EventEmitter/streams/pipe
 
-* Events
+* EventEmitter
 * fs
 * http
 * [stream-adventure](https://github.com/workshopper/stream-adventure)
 
-### EventEmitter
+## EventEmitter
 
 ``` javascript
 var EventEmitter = require('events');
@@ -177,7 +126,7 @@ setTimeout(function() {
 }, 1000);
 ```
 
-### Readable Stream
+## Readable Stream
 
 ``` javascript
 var fs = require('fs');
@@ -191,7 +140,7 @@ readableStream.on('end', function() {
 });
 ```
 
-### Writable Streams
+## Writable Streams
 
 ``` javascript
 var fs = require('fs');
@@ -202,14 +151,14 @@ readableStream.on('data', function(chunk) {
 });
 ```
 
-### duplex, transform streams
+## duplex, transform streams
 
 ``` javascript
 a.pipe(b).pipe(a)
 a.pipe(b).pipe(c)
 ```
 
-### Pipe
+## Pipe
 
 ``` javascript
 var writableModuleStream = fs.createWriteStream('module.txt');
@@ -230,7 +179,7 @@ function onFileRead() {
     }
 ```
 
-### fs + http
+## fs + http
 
 ``` javascript
 var http = require('http'),
@@ -245,6 +194,8 @@ http.createServer(function(request, response) {
 ```
 
 # ASYNC CODE
+
+##
 
 * Node-style
 * Promises (Q)
@@ -297,7 +248,7 @@ async.waterfall([
 });
 ```
 
-## Generators(ES6)
+## Generators
 
 ``` javascript
 var Q = require('Q');
@@ -317,12 +268,26 @@ co(test);
 
 ## async/await
 
-!!! TODO
 ``` javascript
+function caserUpper(val) {
+  return new Promise((resolve, reject) => {
+    resolve(val.toUpperCase());
+  });
+}
 
+async function msg(x) {
+  try {
+    const msg = await caserUpper(x);
+    console.log(msg);
+  } catch(err) {
+    console.log('Ohh no:', err.message);
+  }
+}
 ```
 
 # SETUP APPLICATION
+
+##
 
 * npm init
 * lock files
@@ -331,9 +296,73 @@ co(test);
 * babel
 * pre-commit
 * lint-staged
-* type-script
-* dependency injection
+* typescript
+* dependency injection ([Inversify](http://inversify.io))
+* config (dotenv)
 
+# REST (Representational State Transfer)
+
+## METHODS
+
+Safity / Idempotency
+
+| HTTP Method | Safe | Idempotent |
+|:-----------:|:----:|:----------:|
+| **GET**     | + | + |
+| **PUT**     | - | + |
+| **DELETE**  | - | + |
+| **POST**    | - | - |
+| **PATCH**   | - | - |
+
+## RESPONSE STATUS CODES
+
+* 1xx informational
+* 2xx success
+* 3xx redirect
+* 4xx client error
+* 5xx server error
+
+## REST API IS COMPOSED OF
+
+* docroot
+* resource
+* collection
+* controller
+
+## RESOURCES
+
+	GET		/pet/{petId} (find pet by Id)
+	PUT		/pet/{petId} (update an existing pet)
+	DELETE	/pet/{petId} (delete a pet)
+	POST	/pet/{petId}/uploadImage (upload an image)
+
+## Examples
+
+### FILTERING
+
+	GET /comments?filter[post]=1,2&filter[author]=12 HTTP/1.1
+
+### PAGINATION
+
+	GET /articles?page[number]=3&page[size]=1 HTTP/1.1
+
+## Values
+
+* Uniform Interface
+* Stateless Interactions
+* Cacheable
+* Client-Server
+* Layered System
+* Code on Demand
+
+## GOLDEN RULES
+
+* Flat is better than nested
+* Simple is better than complex
+* Strings are better than numbers
+* Consistency is better than customization
+
+# GraphQL
 
 # EXPRESS
 
@@ -344,7 +373,7 @@ co(test);
 * Request
 * Response
 
-### Middleware concept
+## Middleware concept
 
 ``` javascript
 var express = require('express');
@@ -362,7 +391,7 @@ app.listen(3000, function () {
 });
 ```
 
-### ROUTING
+## ROUTING
 
 * Respond to HTTP requests with a callback
 * Supports variable placement in routes
@@ -379,7 +408,7 @@ router.put(/\/abc|\/xyz/, function (req, res) {}});
 router.delete(['/', '/:id'], function (req, res) {});
 ```
 
-### Templating
+## Templating
 
 ``` javascript
 app.set('view engine', 'ejs');
@@ -390,31 +419,45 @@ app.get('/', function (req, res) {
 });
 ```
 
-# DEBUGGING
+# DEVELOPMENT
+
+##
 
 * postman
-* https://github.com/winstonjs/winston
-* nodemon
+* [winston](https://github.com/winstonjs/winston)
+* [nodemon](https://www.npmjs.com/package/nodemon)
 * [inspect](https://nodejs.org/en/docs/guides/debugging-getting-started/)
 * Debugging (--inspect    --inspect-brk)
+* Cluster
+  * > UV_THREADPOOL_SIZE
+* [pm2](http://pm2.keymetrics.io)
+  * pm2 start * --watch
+  * pm2 list 
+  * pm2 monit
+  * pm2 stop all
 
 # Error Handling
 
-* exceptions
+##
+
+* Exceptions
 * [Async/await node express](https://www.npmjs.com/package/express-async-errors)
 
-# Testing
-
-# NODEJS SCALING
-
-* Cluster
-* [pm2](http://pm2.keymetrics.io)
-
-# Communication
-
-* swagger
+``` javascript
+const express = require('express');
+require('express-async-errors');
+const User = require('./models/user');
+const app = express();
+ 
+app.get('/users', async (req, res) => {
+  const users = await User.findAll();
+  res.send(users);
+});
+```
 
 # SECURITY
+
+##
 
 * root
 * eval is EVIL
@@ -422,6 +465,7 @@ app.get('/', function (req, res) {
 * CORS
 * CSP
 * Do not trust anyone
+* HTTP Headers ([helmetjs](https://helmetjs.github.io))
 
 ## SECURITY TOOLS
 
@@ -430,11 +474,9 @@ app.get('/', function (req, res) {
 * [snyk](https://snyk.io)
 * [retire.js](https://retirejs.github.io/retire.js/)
 
-
-
 # DB Overview
 
-* sql (ORM Sequelize)
+* SQL (ORM Sequelize)
 * mongo (mongoose)
 * redis
 
@@ -443,6 +485,7 @@ app.get('/', function (req, res) {
 ## Links
 
 * [BE with NestJs](https://auth0.com/blog/full-stack-typescript-apps-part-1-developing-backend-apis-with-nestjs/)
+* [The Twelve Factors](https://12factor.net/)
 
 
 ## Notes

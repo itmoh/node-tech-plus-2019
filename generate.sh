@@ -1,2 +1,2 @@
 #!/bin/bash
-pandoc -t beamer slides.md -o slides.pdf
+pandoc --slide-level=2 -t beamer slides.md -o slides.pdf
