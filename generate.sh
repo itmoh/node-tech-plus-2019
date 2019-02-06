@@ -1,2 +1,2 @@
 #!/bin/bash
-pandoc --slide-level=2 -t beamer slides.md -o slides.pdf
+pandoc -t beamer slides.md --slide-level=2 -V theme:Boadilla -o slides.pdf
